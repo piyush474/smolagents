@@ -10,18 +10,18 @@ load_dotenv()
 
 llm = ChatOpenAI(model="gpt-4o-mini")
 
-system_message = SystemMessage(content="You are an assistant that answers questions or replies within 20 words or less.")
+SYSTEM_PROMPT = "You are an assistant that answers questions or replies within 20 words or less."
 
 
 class ChatState(TypedDict):
     messages: Annotated[list[BaseMessage], add_messages]
+    system_prompt: str
 
 
 def chat_node(state: ChatState) -> ChatState:
-    # Prepend for the model only. Do not return it, so it is never stored or shown.
-    messages = [system_message] + state["messages"]
-    response = llm.invoke(messages)
-    return {"messages": [response]}
+    system_prompt = state.get("system_prompt") or SYSTEM_PROMPT
+    response = llm.invoke([SystemMessage(content=system_prompt)] + state["messages"])
+    return {"messages": [response], "system_prompt": system_prompt}
 
 
 checkpoint = MemorySaver()

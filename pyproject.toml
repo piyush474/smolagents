@@ -1,8 +1,13 @@
 [project]
-name = "llm-engineering"
+name = "smolagents"
 version = "0.1.0"
 requires-python = ">=3.11"
 dependencies = [
+    "langchain_tavily",
+    "langgraph-checkpoint-sqlite>=3.1.0",
+    "langgraph>=1.2.0",
+    "pydantic>=2.10.4",
+    "streamlit",
     "smolagents[litellm]",
     "anthropic>=0.69.0",
     "beautifulsoup4>=4.14.2",
@@ -51,4 +56,6 @@ dependencies = [
     "langchain-experimental>=0.0.42",
     "groq>=0.33.0",
     "xgboost>=3.1.1",
+    "faiss-cpu>=1.15.1",
+    "pypdf>=6.19.0",
 ]
